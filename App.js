@@ -1,22 +1,46 @@
-import { Pressable,StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator,Pressable,StyleSheet, Text, TextInput, View,FlatList } from 'react-native';
 import LojaItem from './src/components/LojaItem';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
+import {app,db,getFirestore,collection, addDoc, getDocs} from './src/services/firebaseConfig'
+import { useState,useEffect } from 'react';
 
 export default function App() {
+  const[title,setTitle]=useState('')
+  const[produtoList,setProdutoList]=useState([])
 
-  const add = async() =>{
+  const addItem = async() =>{
     try {
-      const docRef = await addDoc(collection(db, "produtos"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
+      const docRef = await addDoc(collection(db,"produtos"), {
+        title: title,
+        isChecked:false
       });
+      alert("PRODUTO CADASTRADO")
+      setTitle('')
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }
+
+  const getItem = async () =>{
+    let d = []
+    const querySnapshot = await getDocs(collection(db, "produtos"));
+    querySnapshot.forEach((doc) => {
+      //console.log(doc.id , doc.data());
+      const produtos = {
+        id:doc.id,
+        title:doc.data().title,
+        isChecked:doc.data().isChecked
+      }
+      d.push(produtos)
+    });
+    setProdutoList(d)
+  }
+
+  useEffect(()=>{
+    getItem()
+  },[])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,13 +51,19 @@ export default function App() {
           <MaterialIcons name="delete" size={24} color="black" />
         </Pressable>
       </View>
-      <LojaItem />
-      <LojaItem />
-      <LojaItem />
+
+      {produtoList.length>0?(<FlatList 
+        data={produtoList}
+        renderItem={({item})=>(<LojaItem title={item.title}/>)}
+      />):<ActivityIndicator/>}
+      
 
       <TextInput 
         style={styles.txtInput}
         placeholder='Digite o nome do produto...'
+        value={title}
+        onChangeText={(value)=>setTitle(value)}
+        onSubmitEditing={addItem}
       />
       
     </SafeAreaView>

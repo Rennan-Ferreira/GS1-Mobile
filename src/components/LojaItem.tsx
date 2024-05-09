@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 
-export default function LojaItem() {
+export default function LojaItem(props) {
 
     return (
         <SafeAreaView>
@@ -13,7 +13,7 @@ export default function LojaItem() {
                     <AntDesign name="checkcircleo" size={24} color="black" />
                 </Pressable>
 
-                <Text style={style.txt}>Produto</Text>
+                <Text style={style.txt}>{props.title}</Text>
 
                 <Pressable>
                     <MaterialIcons name="delete" size={24} color="black" />
