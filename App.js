@@ -17,7 +17,7 @@ export default function App() {
       });
       alert("PRODUTO CADASTRADO")
       setTitle('')
-      console.log("Document written with ID: ", docRef.id);
+      getItem()
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -54,7 +54,13 @@ export default function App() {
 
       {produtoList.length>0?(<FlatList 
         data={produtoList}
-        renderItem={({item})=>(<LojaItem title={item.title}/>)}
+        renderItem={({item})=>(
+          <LojaItem 
+            title={item.title}
+            isChecked={item.isChecked}
+            id={item.id}
+            getItem={getItem}
+            /> )}
       />):<ActivityIndicator/>}
       
 

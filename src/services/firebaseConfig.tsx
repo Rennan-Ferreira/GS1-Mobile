@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore,collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore,collection, addDoc, getDocs, doc, updateDoc,deleteDoc } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -7,6 +7,7 @@ const firebaseConfig = {
   authDomain: "loja-pm-41511.firebaseapp.com",
   projectId: "loja-pm-41511",
   storageBucket: "loja-pm-41511.appspot.com",
+  
   messagingSenderId: "361225062325",
   appId: "1:361225062325:web:964a955d65f0202ee23bfc"
 };
@@ -15,4 +16,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export{app,db,getFirestore,collection, addDoc, getDocs}
+export{app,db,getFirestore,collection, addDoc, getDocs, doc, updateDoc,deleteDoc}
