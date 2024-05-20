@@ -2,7 +2,7 @@ import { ActivityIndicator,Pressable,StyleSheet, Text, TextInput, View,FlatList 
 import LojaItem from './src/components/LojaItem';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
-import {app,db,getFirestore,collection, addDoc, getDocs} from './src/services/firebaseConfig'
+import {app,db,getFirestore,collection, addDoc, getDocs,deleteDoc,doc} from './src/services/firebaseConfig'
 import { useState,useEffect } from 'react';
 
 export default function App() {
@@ -38,6 +38,12 @@ export default function App() {
     setProdutoList(d)
   }
 
+  const deleteItemList = async()=>{
+    const pegandoItems = await getDocs(collection(db, "produtos"));
+    pegandoItems.docs.map((item)=>deleteDoc(doc(db, "produtos", item.id)))
+    getItem()
+  }
+
   useEffect(()=>{
     getItem()
   },[])
@@ -46,8 +52,8 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTxt}>Lista de itens</Text>
-        <Text style={styles.numItem}>3</Text>
-        <Pressable>
+        <Text style={styles.numItem}>{produtoList.length}</Text>
+        <Pressable onPress={deleteItemList}>
           <MaterialIcons name="delete" size={24} color="black" />
         </Pressable>
       </View>
