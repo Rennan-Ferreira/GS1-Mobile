@@ -5,15 +5,6 @@ import { useFonts } from 'expo-font';
 
 export default function HomeClose({navigation}){
 
-    const [loaded] = useFonts({
-        'Inria': require('../../assets/fonts/InriaSans-Bold.ttf'),
-        'FredokaBold': require('../../assets/fonts/Fredoka_Expanded-Bold.ttf')
-      });
-    if (!loaded) {
-    return null;
-    }
-
-
 
     return(
         <SafeAreaView style={estilo.safeArea}>
@@ -53,7 +44,7 @@ export default function HomeClose({navigation}){
 const estilo = StyleSheet.create({
     safeArea:{
         flex: 1,
-        backgroundColor:'#1E5A63'
+        backgroundColor:'#57d290'
     },
     container:{
         flex: 1
@@ -67,7 +58,7 @@ const estilo = StyleSheet.create({
         margin:'auto'
     },
     btn:{
-        backgroundColor:'#1E5A63',
+        backgroundColor:'#57d290',
         width: 230,
         height: 40,
         borderRadius: 20,
@@ -76,7 +67,7 @@ const estilo = StyleSheet.create({
         marginTop: 20
     },
     txtBtn:{
-        color: '#FFFFFF',
+        color: '#000000',
         fontFamily: 'Inria',
         fontSize: 20
     },
@@ -88,7 +79,8 @@ const estilo = StyleSheet.create({
     titulo:{
         fontSize: 40,
         textAlign:'center',
-        color: '#FFFFFF',
-        fontFamily:'FredokaBold',
+        color: '#000000',
+        fontFamily:'Bold',
+        fontWeight:'bold'
     }
 });
