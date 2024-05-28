@@ -3,7 +3,7 @@ import {View, Text, ImageBackground, StyleSheet, Image, TouchableOpacity, SafeAr
 import { useFonts } from 'expo-font';
                                         
 
-export default function HomeClose({navigation}){
+export default function HomeOpen({navigation}){
 
 
     return(
@@ -50,7 +50,7 @@ const estilo = StyleSheet.create({
         flex: 1
     },
     ViewLogo:{
-        height: 430
+        height: 400
     },
     logo:{
         width:320,
