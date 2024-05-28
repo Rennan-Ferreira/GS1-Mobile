@@ -1,8 +1,7 @@
-import {Text, View } from 'react-native';
-
+import { Rotas } from './src/routes/index';
 
 export default function App() {
-  <View>
-    <Text>Oi</Text>
-  </View>
-};
+  return (
+    <Rotas/>
+  );
+}
