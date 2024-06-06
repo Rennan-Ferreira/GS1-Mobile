@@ -6,6 +6,8 @@ import HomeClose from '../screens/homeClose';
 import InfoEmail from '../screens/infoEmail';
 import Login from '../screens/login';
 import HomeOpen from '../screens/homeOpen';
+import InicialPostagem from '../screens/inicialPostagens';
+import CadastroReciclagem from '../screens/telaCadastroReciclagem';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +49,21 @@ export function MyStack() {
                 headerShown:false
             }}
         />
-      </Stack.Navigator>
+        <Stack.Screen 
+            name="CadastroReciclagem" 
+            component={CadastroReciclagem} 
+            options={{
+                headerShown:false
+            }}
+        />
+        <Stack.Screen 
+            name="InicialPostagem" 
+            component={InicialPostagem} 
+            options={{
+                headerShown:false
+            }}
+        />
+        </Stack.Navigator>
+
     );
   }

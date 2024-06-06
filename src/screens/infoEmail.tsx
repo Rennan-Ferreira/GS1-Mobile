@@ -1,11 +1,26 @@
 import {ImageBackground, Text, View , StyleSheet, SafeAreaView, TextInput, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
+import {auth} from '../services/firebaseConfig';
+import { sendPasswordResetEmail } from "firebase/auth";
 import { Ionicons } from '@expo/vector-icons';
 
 
 export default function InfoEmail({navigation}) {
   const[email,setEmail]=useState('')
   const [error, setError] = useState(null);
+
+  const enviarEmail = () =>{
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            console.log("E-mail de redefinição de senha enviado.");
+            alert('Um link de redefinição de senha foi enviado para seu E-mail')
+        })
+        .catch((error) => {
+            console.error("Erro ao enviar e-mail de redefinição de senha:", error);
+            const errorMessage = error.message
+            setError(errorMessage)
+        });
+}
 
   return(
 
@@ -14,20 +29,17 @@ export default function InfoEmail({navigation}) {
     source={require('../../assets/fundo-01.jpg')}
     style={estilo.container}
   >
-
-    
-
-        <TouchableOpacity style={{ paddingTop: 12, paddingLeft: 5 }} onPress={() => { navigation.goBack() }}>
-          <Image
-            source={require('../../assets/voltar.png')}
-            style={estilo.arrowBack}
-          />
-        </TouchableOpacity>
+    <TouchableOpacity style={{ paddingTop: 12, paddingLeft: 5 }} onPress={() => { navigation.goBack() }}>
+        <Image
+        source={require('../../assets/voltar.png')}
+        style={estilo.arrowBack}
+        />
+    </TouchableOpacity>
     <View style={estilo.form}>
 
       <View style={estilo.ViewLogo}>
           <Image
-              source={require('../../assets/Logo.jpg')}
+              source={require('../../assets/LogoRedonda.png')}
               style={estilo.logo}
           />
       </View>
@@ -49,7 +61,7 @@ export default function InfoEmail({navigation}) {
 
           <TouchableOpacity
               style={estilo.btn}
-              //onPress={enviarEmail}
+              onPress={enviarEmail}
           >
               <Text style={estilo.txtBtn}>ENVIAR</Text>
           </TouchableOpacity>

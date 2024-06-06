@@ -14,11 +14,10 @@ export default function HomeOpen({navigation}){
         >
             <View style={estilo.ViewLogo}>
                 <Image
-                    source={require('../../assets/Logo.jpg')}
+                    source={require('../../assets/LogoRedonda.png')}
                     style={estilo.logo}
                 />
             </View>
-            <Text style={estilo.titulo}>Reciclagem</Text>
             <View style={estilo.btns}>
                 <TouchableOpacity
                     style={estilo.btn}
@@ -69,18 +68,12 @@ const estilo = StyleSheet.create({
     txtBtn:{
         color: '#000000',
         fontFamily: 'Inria',
-        fontSize: 20
+        fontSize: 20,
+        fontWeight: 'bold'
     },
     btns:{
         alignItems:'center',
         justifyContent:'center',
         height:400
-    },
-    titulo:{
-        fontSize: 40,
-        textAlign:'center',
-        color: '#000000',
-        fontFamily:'Bold',
-        fontWeight:'bold'
     }
 });

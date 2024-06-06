@@ -1,12 +1,31 @@
 import { ImageBackground, Text, View, StyleSheet, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import {auth} from '../services/firebaseConfig';
+import {signInWithEmailAndPassword,createUserWithEmailAndPassword} from "firebase/auth"
 
 export default function Login({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
+
+  const login = () => {
+    signInWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+            setEmail("")
+            setSenha("")
+            navigation.navigate("HomeClose")
+            alert('Login realizado com Sucesso !')
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            console.error(error);
+            setError(errorMessage);
+        });
+  };
 
   return (
     <SafeAreaView style={estilo.safeArea}>
@@ -23,7 +42,7 @@ export default function Login({ navigation }) {
         <View style={estilo.boxLogin}>
           <View style={estilo.ViewLogo}>
             <Image
-              source={require('../../assets/Logo.jpg')}
+              source={require('../../assets/LogoRedonda.png')}
               style={estilo.logo}
             />
           </View>
@@ -54,7 +73,7 @@ export default function Login({ navigation }) {
 
             <TouchableOpacity
               style={estilo.btn}
-            //onPress={login} 
+              onPress={login} 
             >
               <Text style={estilo.txtBtn}>LOGIN</Text>
             </TouchableOpacity>

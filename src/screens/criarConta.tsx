@@ -1,6 +1,8 @@
 import {Text, View, ImageBackground, StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { auth } from '../services/firebaseConfig';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
 export default function CriarConta({navigation}) {
@@ -9,6 +11,36 @@ export default function CriarConta({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [error, setError] = useState(null);
+
+  const handleSignUp = () => {
+    if(userName === ""){
+        setError("Username is required")
+        return;
+    }
+    if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log('User account created & signed in:', userCredential.user);
+        setEmail("");
+        setUserName("");
+        setPassword("");
+        setConfirmPassword("");
+        setError(null);
+        alert('Conta criada com Sucesso !!')
+        navigation.navigate('Login');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.error(error);
+        setError(errorMessage); // Exibe a mensagem de erro para o usuário
+      });
+  };
+
   return(
     <SafeAreaView style={estilo.safeArea}>
       <ImageBackground
@@ -24,7 +56,7 @@ export default function CriarConta({navigation}) {
         <View style={estilo.boxInputs}>
         <View style={estilo.ViewLogo}>
           <Image
-            source={require('../../assets/Logo.jpg')}
+            source={require('../../assets/LogoRedonda.png')}
             style={estilo.logo}
           />
         </View>
@@ -77,7 +109,7 @@ export default function CriarConta({navigation}) {
 
           <TouchableOpacity
             style={estilo.btn}
-            //onPress={handleSignUp}
+            onPress={handleSignUp}
           >
             <Text style={estilo.txtBtn}>SIGN UP</Text>
           </TouchableOpacity>
